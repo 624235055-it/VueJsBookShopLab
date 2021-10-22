@@ -68,8 +68,8 @@
             </div>
         </div>
 
-        <button class="btn btn-primary" >Save</button>&nbsp;
-        <button class="btn btn-danger" >Cancel</button>
+        <button class="btn btn-primary" v-on:click="SaveBook()">Save</button>&nbsp;
+        <button class="btn btn-danger" v-on:click="Cancel()">Cancel</button>
 
     </div>
     <br /><br />
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 export default {
     name: "BookAddNew",
     data() {
@@ -97,8 +97,10 @@ export default {
     },
     methods: {
         async SaveBook() {
-
-            //Code for sent data to API to add new book
+            
+            await axios.post(this.$apiUrl + "book", this.book);
+            await this.$router.push('/');
+        
 
         },
         Cancel() {

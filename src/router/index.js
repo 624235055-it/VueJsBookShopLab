@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Books from '../components/Books.vue'
 import BookAddNew from '../components/BookAddNew.vue'
 import BookEdit from '../components/BookEdit.vue'
+//import Students from '../components/Students.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     name: 'EditBook',
     component: BookEdit
   },  
+  //{
+    //path: '/students',
+    //name: 'Students',
+   // component: Students
+  //},
   {
     path: '/about',
     name: 'About',

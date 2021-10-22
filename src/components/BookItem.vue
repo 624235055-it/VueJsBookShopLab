@@ -40,7 +40,7 @@
                         <p class="text-justify">{{book.shortDescription}}</p>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-sm" >Edit Book</button>&nbsp;
+                <button class="btn btn-primary btn-sm" v-on:click="EditBook(book.bookid)">Edit Book</button>&nbsp;
                 <button class="btn btn-danger btn-sm" v-on:click="DeleteBook(book.bookid)">Delete Book</button>
                 <br />
             </div>
@@ -55,9 +55,10 @@ export default {
     name: "BookItem",
     props: ["book"],
     methods: {
-        //EditBook(bookid) {
+        EditBook(bookid) {
             //Send bookid to Edit Book page
-        //},
+            this.$router.push('/editbook/' + bookid )
+        },
         DeleteBook(bookid) {
 
             if (confirm("Do you want to delete this book?")) {

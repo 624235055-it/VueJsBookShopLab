@@ -4,7 +4,7 @@
     <br /><br />
     <div class="container">
         <div class="row">
-            <div v-bind:key="book.bookid" v-for="book in booksearch">
+            <div v-bind:key="book.bookid" v-for="book in BookInSearch">
                 <BookItem v-bind:book="book" v-on:delete:book="DeleteBook" />
             </div>
 
