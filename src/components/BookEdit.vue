@@ -58,6 +58,21 @@
                 </div>
             </div>
         </div>
+                <div class="form-group row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="publishedDate">Published Date:</label>
+                    <vc-date-picker v-model="book.publishedDate" mode="date" id="publishedDate" name="publishedDate" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="bookimage">Upload Image:</label>
+                    <UploadImage id="bookinage" name="bookimage" ref="bookimage" /><br/> 
+                    <img v-bind:src="require(`@/assets/bookImages/`+ book.thumbnailUrl)" width="200px" /><br>
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <div class="col">
                 <div class="form-group">
@@ -77,6 +92,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import axios from "axios";
 export default {
     name: "BookEdit",
@@ -89,6 +105,8 @@ export default {
         async SaveBook() {
 
             if (confirm("Do you want to save?")) {
+
+                this.book.publishedDate = moment(String(this.book.publishedDate)).format('YYYY-MM-DD');
 
                 await axios.put(this.$apiUrl + "book/" + this.$route.params.bookid , this.book);
                 await this.$router.push('/'); 

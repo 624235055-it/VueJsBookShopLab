@@ -30,7 +30,7 @@ export default {
         return {
             search: "",
             books: [],
-            booksearch: []
+            //booksearch: []
         }
     },
     async created() {
@@ -40,7 +40,7 @@ export default {
         //Code for GET Books from API
         const response = await axios.get(this.$apiUrl + "books");
         this.books = await response.data.data;
-        this.booksearch = this.books
+        //this.booksearch = this.books
     },
     methods: {
         SearchBook: function (searchvalue) {

@@ -58,6 +58,21 @@
                 </div>
             </div>
         </div>
+        
+        <div class="form-group row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="publishedDate">Published Date:</label>
+                    <vc-date-picker v-model="book.publishedDate" mode="date" id="publishedDate" name="publishedDate" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="bookimage">Upload Image:</label>
+                    <UploadImage id="bookimage" name="bookimage" ref="bookimage" />
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <div class="col">
                 <div class="form-group">
@@ -77,9 +92,14 @@
 </template>
 
 <script>
+import UploadImage from './UploadImage';
 import axios from "axios";
+import moment from 'moment';
 export default {
     name: "BookAddNew",
+    components:{
+        UploadImage
+    },
     data() {
         return {
             book: {
@@ -98,9 +118,19 @@ export default {
     methods: {
         async SaveBook() {
             
+            if (confirm("Do you want to save this book?")){
+                //Code for sent data to API to add new book
+                this.book.publishedDate = moment(String(this.book.publishedDate)).format('YYYY-MM-DD');
+                let bookimage = await this.$refs.bookimage.getFileName()
+
+                if (await bookimage !== "") {
+                    this.book.thumbnailUrl = await bookimage
+                    await this.$refs.bookimage.UploadImage();
+                }
+
             await axios.post(this.$apiUrl + "book", this.book);
             await this.$router.push('/');
-        
+            }
 
         },
         Cancel() {
