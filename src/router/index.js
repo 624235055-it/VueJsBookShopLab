@@ -3,7 +3,10 @@ import VueRouter from 'vue-router'
 import Books from '../components/Books.vue'
 import BookAddNew from '../components/BookAddNew.vue'
 import BookEdit from '../components/BookEdit.vue'
-//import Students from '../components/Students.vue'
+import Students from '../components/Students.vue'
+import StudentAddNew from '../components/StudentAddNew.vue'
+import StudentEdit from '../components/StudentEdit.vue'
+import Login from '../components/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -11,7 +14,12 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Books
+    component: Login,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/books',
@@ -28,11 +36,26 @@ const routes = [
     name: 'EditBook',
     component: BookEdit
   },  
-  //{
-    //path: '/students',
-    //name: 'Students',
-   // component: Students
-  //},
+  {
+    path: '/students',
+    name: 'Students',
+    component: Students
+  },
+  {
+    path: '/addstudent',
+    name: 'StudentAddNew',
+    component: StudentAddNew
+  }, 
+  {
+    path: '/editstudent/:number',
+    name: 'EditStudent',
+    component: StudentEdit
+  },  
+  {
+    path: '*',
+    name: 'NotFound',
+    component: Login    
+  },
   {
     path: '/about',
     name: 'About',
