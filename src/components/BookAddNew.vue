@@ -58,7 +58,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="form-group row">
             <div class="col">
                 <div class="form-group">
@@ -92,14 +91,14 @@
 </template>
 
 <script>
-import UploadImage from './UploadImage';
+import UploadImage from './UploadImage.vue';
 import axios from "axios";
 import moment from 'moment';
 export default {
     name: "BookAddNew",
     components:{
         UploadImage
-    },
+        },
     data() {
         return {
             book: {
@@ -112,14 +111,16 @@ export default {
                 shortDescription: "",
                 author: "",
                 category: ""
-            }
+            },
+            
         }
     },
     methods: {
         async SaveBook() {
-            
-            if (confirm("Do you want to save this book?")){
-                //Code for sent data to API to add new book
+        
+            if (confirm("Do you want to save this book?")) {
+
+
                 this.book.publishedDate = moment(String(this.book.publishedDate)).format('YYYY-MM-DD');
                 let bookimage = await this.$refs.bookimage.getFileName()
 
@@ -128,15 +129,16 @@ export default {
                     await this.$refs.bookimage.UploadImage();
                 }
 
-            await axios.post(this.$apiUrl + "book", this.book);
-            await this.$router.push('/');
+                this.accessToken = await localStorage.getItem("accessToken");
+                await axios.post(this.$apiUrl + "book",this.book,{ headers: {"Authorization" : `bearer ${this.accessToken}`} });
+                await this.$router.push('/books');
             }
 
         },
         Cancel() {
             if (confirm("Do you want to cancel adding this book?")) {
 
-                this.$router.push('/');
+                this.$router.push('/books');
 
             }
 
